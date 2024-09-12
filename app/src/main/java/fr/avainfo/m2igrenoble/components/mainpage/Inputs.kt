@@ -8,23 +8,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.text.toLowerCase
-import java.util.Locale
 
 @Composable
-fun Inputs(placeholder: String, b: Bundle) {
+fun Inputs(placeholder: String, bundle: Bundle) {
 	var text by remember { mutableStateOf("") }
-
-	val id = placeholder.replace(" ", "").lowercase(Locale.getDefault()); // First Name -> firstname
 
 	return OutlinedTextField(
 		value = text,
 		onValueChange = {
 			text = it;
-			b.putString(
-				id, it
-			)
+			bundle.putString(placeholder, it);
 		},
-		placeholder = { Text(placeholder) },
-	)
+		placeholder = { Text(placeholder) }
+	);
 }

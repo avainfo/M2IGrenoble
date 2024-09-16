@@ -1,17 +1,25 @@
 package fr.avainfo.m2igrenoble
 
-fun main() {
-	// print(fact(0)); : 1
-	// print(fact(5)); : 120
-	// print(fact(6)); : 720
+import java.net.HttpURLConnection
+import java.net.URL
 
-	// print(pal("kayak")); : true
+fun sendGet() {
+	val url = URL("https://jsonplaceholder.typicode.com/todos/1")
 
-	//println(calc(1, 2, "+")); : 3
-	//println(calc(4, 2, "*")); : 8
+	with(url.openConnection() as HttpURLConnection) {
+		requestMethod = "GET"
+
+		println("\nSent 'GET' request to URL : $url; Response Code : $responseCode")
+
+		var i = 0;
+		inputStream.bufferedReader().use {
+			it.lines().forEach { line ->
+				println("[${i++}]: $line")
+			}
+		}
+	}
 }
 
-// Calcul de la factorielle
-// n = 5
-// 1 * 2 * 3 * 4 * 5 = 120
-// print(fact(5)); : 120
+fun main() {
+	sendGet()
+}
